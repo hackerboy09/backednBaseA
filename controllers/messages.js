@@ -19,7 +19,8 @@ if (!texto2){
 
 /*PROBAR UN STATUS EN CADA UNA DE ELLAS: res.status(número del error).json*/
 const hiMessage =(req=request, res=response) => {
-    res.status(405).json({msg:'Hola Mundo'})
+    const {name} = req.params
+    res.json({msg:'Hola ' + name})
 }
 
 const byMessage = (req=request, res=response) => {
