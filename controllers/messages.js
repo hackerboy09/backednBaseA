@@ -1,4 +1,5 @@
 const { request, response } = require("express")
+const { param } = require("../routes/messages")
 
 const rootMessage = (req = request, res=response) => {
     const {texto1, texto2} = req.query 
@@ -9,18 +10,22 @@ const rootMessage = (req = request, res=response) => {
 //})
 //}
 if (!texto1){
-    res.status(400).json({msg:"Falta el parametro 'texto1"})
+    res.status(400).json({msg:"Falta el parametro 'texto1'"})
 }
 if (!texto2){
-    res.status(400).json({msg:"Falta el parametro 'texto2"})
+    res.status(400).json({msg:"Falta el parametro 'texto2'"})
 }
     res.status(200).json({msg: texto1 + ' ' + texto2})
 }
 
 /*PROBAR UN STATUS EN CADA UNA DE ELLAS: res.status(número del error).json*/
+
+
 const hiMessage =(req=request, res=response) => {
+    // console.log(req.params)//
     const {name} = req.params
     res.json({msg:'Hola ' + name})
+    //res.status(405).json({msg: 'Hola Mundo'})//
 }
 
 const byMessage = (req=request, res=response) => {
@@ -28,7 +33,11 @@ const byMessage = (req=request, res=response) => {
 }
 
 const postMessage = (req=request, res=response) => {
-    res.status(407).json({msg:'Mensaje POST'})
+    const{no_control, nombre} =req.body
+    //console.log({no_control, nombre})
+    res.json({
+        msg: `Número de Control = ${no_control}, Nombre = ${nombre}`
+})
 }
 
 const putMessage = (req=request, res=response) => {

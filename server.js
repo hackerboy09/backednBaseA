@@ -1,5 +1,6 @@
 const express = require('express') 
 const messagesRouter = require('./routes/messages')
+const cors = require("cors")
 
 class Server{
     constructor(){
@@ -8,8 +9,9 @@ class Server{
          messages:"/api/v1/messages"
 
         }
-      this.routes()
-
+        this.middlewares()
+        this.routes()
+      
     }
 
 routes(){
@@ -18,6 +20,11 @@ routes(){
     //res.send('Hello World')
     //  }
     this.app.use(this.paths.messages, messagesRouter)
+}
+
+middlewares() {
+  this.app.use(cors()) //Permite solicitudes de origen cruzado//
+  this.app.use(express.json()) //Habilita la lectura de contenido en formato JSON//
 }
 
 listen(){
