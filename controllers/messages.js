@@ -1,5 +1,5 @@
 const { request, response } = require("express")
-const { param } = require("../routes/messages")
+//const { param } = require("../routes/messages")
 
 const rootMessage = (req = request, res=response) => {
     const {texto1, texto2} = req.query 
