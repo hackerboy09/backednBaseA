@@ -103,6 +103,13 @@ const addUser = async (req = request, res = response) => {
     try {
         conn = await pool.getConnection()
 
+        const user = await conn.query(`SELECT Usuario FROM Usuarios WHERE Usuario = '${Usuario}'`)
+
+        if (user) {
+            res.status(403).json({msg: `El usuario ${Usuario} ya se encuentra ya se encuentra registrado.`})
+            return
+        }
+
         const {affectedRows} = await conn.query(`
         INSERT INTO Usuarios (
         Nombre,
