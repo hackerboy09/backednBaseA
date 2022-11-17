@@ -1,7 +1,7 @@
 const { request, response } = require("express");
 const bcryptjs = require("bcryptjs")
 const pool = require("../db/connection");
-const modeloUsuarios = require("../models/usuarios");
+const {modeloUsuarios, updateUsuario} = require("../models/usuarios");
 
 const getUsers = async (req = request, res = response) =>{
     
@@ -189,15 +189,14 @@ const updateUserByUsuario = async (req = request, res = response) =>{
             return
         }
          
-        const {affectedRows} = await conn.query(modeloUsuarios.queryUpdateByUsuario,
-            [
-            Nombre || user.Nombre,
-            Apellidos || user.Apellidos,
-            Edad  || user.Edad,
-            Genero  || user.Genero,
-            Fecha_Nacimiento,
-            Usuario
-            ], (error) => {throw new Error(error) })
+        const {affectedRows} = await conn.query(updateUsuario( 
+        Nombre,
+        Apellidos,
+        Edad,
+        Genero,
+        Fecha_Nacimiento,
+        Usuario
+        ), (error) => {throw new Error(error) })
         
         if (!affectedRows === 0) {
             res.status(404).json({msg: `No se pudo agregar el registro del Usuario ${Usuario}`})
