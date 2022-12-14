@@ -1,5 +1,5 @@
 const { request, response } = require("express");
-const bcryptjs = require("bcryptjs")
+const bcryptjs = require("bcryptjs");
 const pool = require("../db/connection");
 const {modeloUsuarios, updateUsuario} = require("../models/usuarios");
 
